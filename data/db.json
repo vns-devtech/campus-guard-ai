@@ -1,0 +1,357 @@
+{
+  "settings": {
+    "demoMode": true,
+    "yoloConfidence": 0.45,
+    "selectedModel": "yolov8n.pt",
+    "byteTrackMatchThresh": 0.7,
+    "byteTrackTrackBuffer": 30,
+    "densityThresholds": {
+      "lowMax": 8,
+      "mediumMax": 20
+    },
+    "riskRules": {
+      "ruleA_proximity": {
+        "enabled": true,
+        "thresholdPx": 95,
+        "calibratedMeters": 2.2,
+        "minPersistenceFrames": 3,
+        "severity": "High"
+      },
+      "ruleB_sharedZone": {
+        "enabled": true,
+        "zoneNames": [
+          "Block III Zebra Crossing",
+          "Main Gate Driveway Conflict"
+        ],
+        "minPersistenceFrames": 2,
+        "severity": "Critical"
+      },
+      "ruleC_approachConflict": {
+        "enabled": true,
+        "minSpeedKmh": 12,
+        "maxTimeToCollisionSec": 2.5,
+        "severity": "High"
+      },
+      "ruleD_highCrowdVehicle": {
+        "enabled": true,
+        "crowdThreshold": 15,
+        "severity": "Warning"
+      },
+      "alertCooldownSec": 6
+    },
+    "retentionDays": 30,
+    "emailAlertsEnabled": false,
+    "alertEmail": "security@sharda.ac.in",
+    "audioAlerts": true
+  },
+  "sources": [
+    {
+      "id": "cam-01",
+      "name": "Main Gate 1 — Entrance & Driveway",
+      "type": "cctv_ip",
+      "zoneId": "zone-01",
+      "location": "Sharda Main Gate 1",
+      "rtspUrl": "rtsp://172.16.20.101:554/stream1",
+      "status": "active",
+      "fps": 25,
+      "resolution": "1920x1080",
+      "isDefault": true
+    },
+    {
+      "id": "cam-02",
+      "name": "Central Boulevard & Block III Crossing",
+      "type": "cctv_ip",
+      "zoneId": "zone-02",
+      "location": "Academic Block III Walkway",
+      "rtspUrl": "rtsp://172.16.20.102:554/stream1",
+      "status": "active",
+      "fps": 30,
+      "resolution": "1920x1080",
+      "isDefault": false
+    },
+    {
+      "id": "cam-03",
+      "name": "Engineering Block Parking Area",
+      "type": "cctv_ip",
+      "zoneId": "zone-03",
+      "location": "Engineering Block V Parking",
+      "rtspUrl": "rtsp://172.16.20.103:554/stream1",
+      "status": "active",
+      "fps": 20,
+      "resolution": "1280x720",
+      "isDefault": false
+    },
+    {
+      "id": "cam-04",
+      "name": "Student Plaza & Cafeteria Avenue",
+      "type": "cctv_ip",
+      "zoneId": "zone-04",
+      "location": "Cafeteria Pedestrian Way",
+      "rtspUrl": "rtsp://172.16.20.104:554/stream1",
+      "status": "active",
+      "fps": 25,
+      "resolution": "1920x1080",
+      "isDefault": false
+    }
+  ],
+  "zones": [
+    {
+      "id": "zone-01",
+      "name": "Main Gate Driveway Conflict",
+      "location": "Gate 1 Plaza",
+      "type": "vehicle_pedestrian_mix",
+      "speedLimitKmh": 15,
+      "pedestrianCapacity": 50,
+      "coordinates": [
+        [
+          60,
+          220
+        ],
+        [
+          380,
+          220
+        ],
+        [
+          420,
+          360
+        ],
+        [
+          40,
+          360
+        ]
+      ],
+      "countingLine": {
+        "x1": 50,
+        "y1": 290,
+        "x2": 400,
+        "y2": 290
+      }
+    },
+    {
+      "id": "zone-02",
+      "name": "Block III Zebra Crossing",
+      "location": "Academic Corridor",
+      "type": "pedestrian_priority_crosswalk",
+      "speedLimitKmh": 10,
+      "pedestrianCapacity": 40,
+      "coordinates": [
+        [
+          120,
+          180
+        ],
+        [
+          450,
+          180
+        ],
+        [
+          480,
+          340
+        ],
+        [
+          100,
+          340
+        ]
+      ],
+      "countingLine": {
+        "x1": 110,
+        "y1": 260,
+        "x2": 470,
+        "y2": 260
+      }
+    },
+    {
+      "id": "zone-03",
+      "name": "Engineering Parking Lot Access",
+      "location": "Block V Lot",
+      "type": "parking_access",
+      "speedLimitKmh": 15,
+      "pedestrianCapacity": 25,
+      "coordinates": [
+        [
+          80,
+          160
+        ],
+        [
+          420,
+          160
+        ],
+        [
+          440,
+          350
+        ],
+        [
+          60,
+          350
+        ]
+      ],
+      "countingLine": {
+        "x1": 70,
+        "y1": 250,
+        "x2": 430,
+        "y2": 250
+      }
+    },
+    {
+      "id": "zone-04",
+      "name": "Cafeteria Plaza Walkway",
+      "location": "Food Court Front",
+      "type": "pedestrian_only_with_service_access",
+      "speedLimitKmh": 5,
+      "pedestrianCapacity": 80,
+      "coordinates": [
+        [
+          50,
+          140
+        ],
+        [
+          460,
+          140
+        ],
+        [
+          470,
+          370
+        ],
+        [
+          40,
+          370
+        ]
+      ],
+      "countingLine": {
+        "x1": 50,
+        "y1": 250,
+        "x2": 460,
+        "y2": 250
+      }
+    }
+  ],
+  "incidents": [
+    {
+      "id": "INC-2026-0891",
+      "timestamp": "2026-10-23T15:59:12.692Z",
+      "zoneId": "zone-02",
+      "zoneName": "Block III Zebra Crossing",
+      "cameraSource": "Central Boulevard & Block III Crossing",
+      "riskType": "Rule B: Shared-Zone Conflict",
+      "severity": "Critical",
+      "pedestrianTrackId": "P-042",
+      "vehicleTrackId": "V-009",
+      "vehicleClass": "Car (Sedan)",
+      "estimatedProximityMeters": 1.4,
+      "detectionConfidence": 0.89,
+      "pedestrianCountInZone": 7,
+      "vehicleCountInZone": 1,
+      "ruleTriggered": "Pedestrian and motor vehicle occupied designated crosswalk simultaneously without yielding.",
+      "status": "New",
+      "reviewedBy": null,
+      "notes": "Vehicle observed entering crossing while two students were midway across lane.",
+      "evidenceSnapshot": null
+    },
+    {
+      "id": "INC-2026-0890",
+      "timestamp": "2026-10-23T15:25:12.692Z",
+      "zoneId": "zone-01",
+      "zoneName": "Main Gate Driveway Conflict",
+      "cameraSource": "Main Gate 1 — Entrance & Driveway",
+      "riskType": "Rule A: Close Proximity",
+      "severity": "High",
+      "pedestrianTrackId": "P-038",
+      "vehicleTrackId": "V-006",
+      "vehicleClass": "Motorcycle",
+      "estimatedProximityMeters": 1.8,
+      "detectionConfidence": 0.84,
+      "pedestrianCountInZone": 12,
+      "vehicleCountInZone": 2,
+      "ruleTriggered": "Close proximity detected (<2.2m threshold) between moving motorcycle and pedestrian.",
+      "status": "Under Review",
+      "reviewedBy": "Security Officer R. Sharma",
+      "notes": "Motorcycle overtook campus shuttle near gate curb. Guard on duty warned the rider.",
+      "evidenceSnapshot": null
+    },
+    {
+      "id": "INC-2026-0889",
+      "timestamp": "2026-10-23T14:23:12.692Z",
+      "zoneId": "zone-04",
+      "zoneName": "Cafeteria Plaza Walkway",
+      "cameraSource": "Student Plaza & Cafeteria Avenue",
+      "riskType": "Rule D: High Crowd with Vehicle Presence",
+      "severity": "Warning",
+      "pedestrianTrackId": "Multiple (22 persons)",
+      "vehicleTrackId": "V-003",
+      "vehicleClass": "Delivery Van",
+      "estimatedProximityMeters": 3.1,
+      "detectionConfidence": 0.92,
+      "pedestrianCountInZone": 24,
+      "vehicleCountInZone": 1,
+      "ruleTriggered": "Commercial service vehicle entered high-density pedestrian corridor during lunch break peak.",
+      "status": "Resolved",
+      "reviewedBy": "Admin Vansh Bhardwaj",
+      "notes": "Scheduled cafeteria supply vehicle escorted through plaza by ground staff.",
+      "evidenceSnapshot": null
+    },
+    {
+      "id": "INC-2026-0888",
+      "timestamp": "2026-10-23T12:43:12.692Z",
+      "zoneId": "zone-02",
+      "zoneName": "Block III Zebra Crossing",
+      "cameraSource": "Central Boulevard & Block III Crossing",
+      "riskType": "Rule C: Potential Approach Conflict",
+      "severity": "High",
+      "pedestrianTrackId": "P-019",
+      "vehicleTrackId": "V-002",
+      "vehicleClass": "Bicycle (E-bike)",
+      "estimatedProximityMeters": 2,
+      "detectionConfidence": 0.81,
+      "pedestrianCountInZone": 4,
+      "vehicleCountInZone": 1,
+      "ruleTriggered": "Projected trajectories intersecting within 2.1s time-to-collision window.",
+      "status": "False Positive",
+      "reviewedBy": "Security Officer M. Khan",
+      "notes": "Cyclist braked smoothly 4 meters prior to zebra line. Track trajectory diverged safely.",
+      "evidenceSnapshot": null
+    },
+    {
+      "id": "INC-2026-0887",
+      "timestamp": "2026-10-23T10:13:12.692Z",
+      "zoneId": "zone-03",
+      "zoneName": "Engineering Parking Lot Access",
+      "cameraSource": "Engineering Block Parking Area",
+      "riskType": "Rule A: Close Proximity",
+      "severity": "High",
+      "pedestrianTrackId": "P-011",
+      "vehicleTrackId": "V-001",
+      "vehicleClass": "Bus (Campus Shuttle)",
+      "estimatedProximityMeters": 1.7,
+      "detectionConfidence": 0.95,
+      "pedestrianCountInZone": 9,
+      "vehicleCountInZone": 1,
+      "ruleTriggered": "Pedestrian walked within blind spot zone of reversing shuttle bus.",
+      "status": "Resolved",
+      "reviewedBy": "Admin Vishal Dixit",
+      "notes": "Conductor spotted student and stopped bus immediately. No injury.",
+      "evidenceSnapshot": null
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "LOG-101",
+      "timestamp": "2026-10-23T15:48:12.692Z",
+      "user": "Vansh Bhardwaj (Admin)",
+      "action": "Updated Risk Rule A threshold",
+      "details": "Proximity threshold modified to 2.2 meters / 95px persistence 3 frames."
+    },
+    {
+      "id": "LOG-102",
+      "timestamp": "2026-10-23T14:23:12.692Z",
+      "user": "Vishal Dixit (Admin)",
+      "action": "Resolved Incident INC-2026-0889",
+      "details": "Marked service delivery van entry as escorted and resolved."
+    },
+    {
+      "id": "LOG-103",
+      "timestamp": "2026-10-23T11:13:12.692Z",
+      "user": "System Guardian",
+      "action": "Automatic Health Check",
+      "details": "All 4 CCTV camera streams and ByteTrack pipeline operational."
+    }
+  ]
+}

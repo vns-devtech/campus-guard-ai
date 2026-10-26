@@ -1,0 +1,6 @@
+{
+  "name": "CampusGuard AI",
+  "description": "Advanced AI-Based Pedestrian Safety and Monitoring System for Campus featuring real-time detection, ByteTrack tracking, crowd density estimation, and risk conflict alerts.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
